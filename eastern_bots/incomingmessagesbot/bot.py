@@ -5,7 +5,7 @@ from eastern_bots.utils.bot_state_storage import DjangoCacheStorage
 dp = Dispatcher(storage=DjangoCacheStorage())
 
 bot_instances = {}
-allowed_bot_usernames = [x.lower() for x in ["BotDevTestBot"]]
+allowed_bot_usernames = [x.lower() for x in ["BotDevTestBot", "IncomingMessagesBot"]]
 
 
 async def get_bot_instance(token):

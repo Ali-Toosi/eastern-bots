@@ -20,6 +20,10 @@ local-rebuild:
 local-manage:
 	@docker-compose -f local.yml run --rm django python manage.py $(cmd)
 
+.PHONY: local-logs
+local-logs:
+	@docker-compose -f local.yml logs -f
+
 .PHONY: prod-up
 prod-up:
 	@docker-compose -f production.yml up -d
