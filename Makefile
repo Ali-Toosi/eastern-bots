@@ -1,3 +1,7 @@
+.PHONY: migrations
+migrations:
+	@docker-compose -f local.yml run --rm django python manage.py makemigrations
+
 .PHONY: local-up
 local-up:
 	@docker-compose -f local.yml up -d
