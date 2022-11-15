@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=eastern_bots
+POSTGRES_USER=hhuaFplyuFKtYLaUurnmfQuHJZWPsdqe
+POSTGRES_PASSWORD=vmDIeYQSwWkWOgKPV1sX5WgCHEHkFqqRdh3IRTywsCgcS9hB8Ly9MyBB520Aet7v
