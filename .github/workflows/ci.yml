@@ -79,6 +79,6 @@ jobs:
             git pull
             rm -r .envs
             mkdir -p .envs/.production/
-            echo '${{ secrets.ENV_DJANGO }}' | base64 -d > .env/.production/.django
-            echo '${{ secrets.ENV_POSTGRES }}' | base64 -d > .env/.production/.postgres
+            echo '${{ secrets.ENV_DJANGO }}' | base64 -d > .envs/.production/.django
+            echo '${{ secrets.ENV_POSTGRES }}' | base64 -d > .envs/.production/.postgres
             docker-compose -f production.yml up --build -d
