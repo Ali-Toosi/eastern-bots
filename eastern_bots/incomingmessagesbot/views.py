@@ -17,7 +17,7 @@ def heartbeat(request):
 @async_to_sync
 async def bot_webhook(request, token):
     update = json.loads(request.body.decode("utf-8"))
-    bot = get_bot_instance(token)
+    bot = await get_bot_instance(token)
     if not bot:
         return HttpResponse("Bot not registered.")
 
@@ -35,7 +35,7 @@ async def poll_bot_updates(request, token):
     if not settings.DEBUG:
         return HttpResponse("Not allowed.")
 
-    bot = get_bot_instance(token)
+    bot = await get_bot_instance(token)
     if not bot:
         return HttpResponse("Bot not registered.")
 

@@ -8,10 +8,11 @@ bot_instances = {}
 allowed_bot_usernames = [x.lower() for x in ["BotDevTestBot"]]
 
 
-def get_bot_instance(token):
+async def get_bot_instance(token):
     if token not in bot_instances.keys():
         bot = Bot(token)
-        if str(bot.get_me().username).lower() not in allowed_bot_usernames:
+        bot_profile = await bot.get_me()
+        if str(bot_profile.username).lower() not in allowed_bot_usernames:
             return None
         bot_instances[token] = bot
     return bot_instances[token]
