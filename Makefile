@@ -42,3 +42,7 @@ prod-restart:
 .PHONY: prod-manage
 prod-manage:
 	@docker-compose -f production.yml run --rm django python manage.py $(cmd)
+
+.PHONY: prod-logs
+prod-logs:
+	@docker-compose -f production.yml logs -f
