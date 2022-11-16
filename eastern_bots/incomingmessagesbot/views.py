@@ -1,6 +1,7 @@
 import asyncio
 import json
 
+from aiogram.types import BotCommand
 from asgiref.sync import async_to_sync, sync_to_async
 from django.conf import settings
 from django.http import HttpResponse
@@ -42,6 +43,25 @@ async def poll_bot_updates(request, token):
         return HttpResponse("Bot not registered.")
 
     asyncio.create_task(dp.start_polling(bot))
+    return HttpResponse("OK.")
+
+
+@async_to_sync
+async def setup_bot(request, token):
+    if not settings.DEBUG:
+        return HttpResponse("Not allowed.")
+
+    bot = await get_bot_instance(token)
+    if not bot:
+        return HttpResponse("Bot not registered.")
+
+    await bot.set_my_commands(
+        [
+            BotCommand(command="start", description="Start the bot"),
+            BotCommand(command="new", description="Create a new webhook for this chat"),
+            BotCommand(command="list", description="List webhooks setup in this chat"),
+        ]
+    )
     return HttpResponse("OK.")
 
 
