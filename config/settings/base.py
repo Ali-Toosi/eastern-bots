@@ -303,3 +303,4 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+DOMAIN_NAME = env("DOMAIN_NAME")

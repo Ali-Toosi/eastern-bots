@@ -2,30 +2,29 @@
 migrations:
 	@docker-compose -f local.yml run --rm django python manage.py makemigrations
 
-.PHONY: local-up
-local-up:
+.PHONY: up
+up:
 	@docker-compose -f local.yml up -d
 
-.PHONY: local-down
-local-down:
+.PHONY: down
+down:
 	@docker-compose -f local.yml down
 
-.PHONY: local-restart
-local-restart:
+.PHONY: restart
+restart:
 	@docker-compose -f local.yml restart django
 
-.PHONY: local-rebuild
-local-rebuild:
+.PHONY: rebuild
+rebuild:
 	@docker-compose -f local.yml stop django
-	@docker-compose -f local.yml build django
-	@docker-compose -f local.yml start django
+	@docker-compose -f local.yml up --build -d django
 
-.PHONY: local-manage
-local-manage:
+.PHONY: manage
+manage:
 	@docker-compose -f local.yml run --rm django python manage.py $(cmd)
 
-.PHONY: local-logs
-local-logs:
+.PHONY: logs
+logs:
 	@docker-compose -f local.yml logs -f
 
 .PHONY: prod-up

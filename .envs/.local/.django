@@ -1,5 +1,6 @@
 # General
 # ------------------------------------------------------------------------------
+DOMAIN_NAME=localhost:8000
 USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
 
@@ -8,7 +9,7 @@ IPYTHONDIR=/app/.ipython
 # ------------------------------------------------------------------------------
 REDIS_URL=redis://redis:6379/0
 
-
 # Bot Tokens (Not used right now)
 # ------------------------------------------------------------------------------
 TEST_BOT_TOKEN=521093911:AAFgPAL-VVolqaKCHbONwJl3Rvu82_tAr04a
+INCOMINGMESSAGESBOT_TOKEN=521093911:AAFgPAL-VVolqaKCHbONwJl3Rvu82_tAr04a
