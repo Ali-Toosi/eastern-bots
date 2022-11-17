@@ -58,6 +58,7 @@ async def setup_bot(request, token):
     await bot.set_my_commands(
         [
             BotCommand(command="start", description="Start the bot"),
+            BotCommand(command="help", description="What is a webhook and how to use it?"),
             BotCommand(command="new", description="Create a new webhook for this chat"),
             BotCommand(command="list", description="List webhooks setup in this chat"),
         ]
