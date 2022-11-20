@@ -23,4 +23,4 @@ drf-spectacular==0.24.2  # https://github.com/tfranzel/drf-spectacular
 
 # AioGram
 # -------------------------------------------------------------------------------
-aiogram==3.0.0b5
+aiogram==3.0.0b6
