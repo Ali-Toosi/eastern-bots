@@ -16,7 +16,7 @@ if READ_DOT_ENV_FILE:
         env_file = ".envs/.local/django"
     else:
         env_file = ".env"
-
+    print(" ====== ENV FILE IS", env_file, "=========")
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR / env_file))
 
