@@ -13,7 +13,7 @@ env = environ.Env()
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
     if env.bool("READTHEDOCS", default=False):
-        env_file = ".envs/.local/django"
+        env_file = ".envs/.local/.django"
     else:
         env_file = ".env"
     print(" ====== ENV FILE IS", env_file, "=========")
