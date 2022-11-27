@@ -12,8 +12,13 @@ env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
+    if env.bool("READTHEDOCS", default=False):
+        env_file = ".envs/.local/django"
+    else:
+        env_file = ".env"
+
     # OS environment variables take precedence over variables from .env
-    env.read_env(str(ROOT_DIR / ".env"))
+    env.read_env(str(ROOT_DIR / env_file))
 
 # GENERAL
 # ------------------------------------------------------------------------------
