@@ -84,8 +84,9 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "eastern_bots.users",
-    # Your stuff: custom apps go here
+    "eastern_bots.utils",
     "eastern_bots.incomingmessagesbot",
+    "eastern_bots.opanonbot",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

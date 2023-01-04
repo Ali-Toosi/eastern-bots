@@ -3,7 +3,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 
-from eastern_bots.incomingmessagesbot.handlers.messages import (
+from eastern_bots.incomingmessagesbot.messages import (
     cancel_message,
     help_message,
     start_message,
