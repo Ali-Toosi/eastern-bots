@@ -32,8 +32,7 @@ async def bot_webhook(request, token):
         # If the webhook fails Telegram will stop sending messages altogether. Best solution is to catch all possible
         # exceptions in your handlers and log any that reach here.
         if settings.DEBUG:
-            print(repr(e))
-            # raise e
+            raise e
 
     return HttpResponse("OK.")
 
