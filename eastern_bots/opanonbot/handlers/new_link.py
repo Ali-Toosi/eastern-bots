@@ -15,9 +15,9 @@ class RevokeStates(StatesGroup):
     requested = State()
 
 
-@dp.message(Command(commands=["new_code"]))
-async def new_code_request(
-    message: types.Message, state: FSMContext, m: messages.en.Messages
+@dp.message(Command(commands=["new_link"]))
+async def new_link_request(
+    message: types.Message, state: FSMContext, bot: Bot, m: messages.en.Messages
 ):
     await state.clear()
     tg_id = message.chat.id
@@ -25,39 +25,49 @@ async def new_code_request(
     if not has_code:
         code = await create_new_chat_code(tg_id)
         await message.reply(
-            m.new_code_created.format(code=code), reply_markup=ReplyKeyboardRemove()
+            m.new_link_created.format(code=code), reply_markup=ReplyKeyboardRemove()
+        )
+        bot_username = (await bot.get_me()).username
+        await bot.send_message(
+            tg_id,
+            f"https://t.me/{bot_username}?start=C{code}",
+            disable_web_page_preview=True,
         )
     else:
         await state.set_state(RevokeStates.requested)
         await message.reply(
-            m.new_code_confirmation,
+            m.new_link_confirmation,
             reply_markup=confirmation_keyboard(yes=m.yes_do_it, no=m.no_cancel),
         )
 
 
 @dp.message(RevokeStates.requested, F.text.in_(messages.union.yes_do_it))
-async def new_code_confirmed(
+async def new_link_confirmed(
     message: types.Message, bot: Bot, state: FSMContext, m: messages.en.Messages
 ):
     tg_id = message.chat.id
     code = await create_new_chat_code(tg_id)
     await state.clear()
     await message.reply(
-        m.new_code_created.format(code=code),
+        m.new_link_created.format(code=code),
         reply_markup=ReplyKeyboardRemove(),
         parse_mode="markdown",
     )
     bot_username = (await bot.get_me()).username
-    await bot.send_message(tg_id, f"https://t.me/{bot_username}?start=C{code}")
+    await bot.send_message(
+        tg_id,
+        f"https://t.me/{bot_username}?start=C{code}",
+        disable_web_page_preview=True,
+    )
 
 
 @dp.message(RevokeStates.requested, F.text.in_(messages.union.no_cancel))
-async def new_code_not_confirmed(
+async def new_link_not_confirmed(
     message: types.Message, state: FSMContext, m: messages.en.Messages
 ):
     await state.clear()
     await message.reply(
-        m.delete_code_cancelled,
+        m.delete_link_cancelled,
         reply_markup=ReplyKeyboardRemove(),
     )
 

@@ -23,7 +23,7 @@ async def create_new_chat_code(tg_user_id):
     code = None
     while not code:
         code = get_random_string(
-            5, allowed_chars=string.ascii_lowercase + string.digits
+            7, allowed_chars=string.ascii_lowercase + string.digits
         )
         if await ChatCode.objects.filter(code=code).aexists():
             code = None
@@ -55,7 +55,7 @@ async def chat_code_is_valid(bot: Bot, m: messages.en.Messages, code, tg_id):
     chat_code_qs = ChatCode.objects.filter(code=code)
     if not code or not await chat_code_qs.aexists():
         await bot.send_message(
-            tg_id, m.send_code_not_found, reply_markup=ReplyKeyboardRemove()
+            tg_id, m.send_link_not_found, reply_markup=ReplyKeyboardRemove()
         )
         return False
 

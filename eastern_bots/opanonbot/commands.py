@@ -9,10 +9,9 @@ from .messages import en, fa
 base_commands = [
     ("start", "command_start"),
     ("help", "command_help"),
-    ("send", "command_send"),
-    ("receive", "command_receive"),
-    ("new_code", "command_new_code"),
-    ("delete_code", "command_delete_code"),
+    ("my_link", "command_my_link"),
+    ("new_link", "command_new_link"),
+    ("delete_link", "command_delete_link"),
 ]
 
 per_lang = {"en": [], "fa": []}

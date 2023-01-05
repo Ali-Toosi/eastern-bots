@@ -14,7 +14,7 @@ class DeletionStates(StatesGroup):
     requested = State()
 
 
-@dp.message(Command(commands=["delete_code"]))
+@dp.message(Command(commands=["delete_link"]))
 async def delete_code_request(
     message: types.Message, state: FSMContext, m: messages.en.Messages
 ):
@@ -22,11 +22,11 @@ async def delete_code_request(
     tg_id = message.chat.id
     has_code = await ChatCode.objects.filter(tg_user_id=tg_id).aexists()
     if not has_code:
-        await message.reply(m.delete_code_no_code, reply_markup=ReplyKeyboardRemove())
+        await message.reply(m.delete_link_no_link, reply_markup=ReplyKeyboardRemove())
     else:
         await state.set_state(DeletionStates.requested)
         await message.reply(
-            m.delete_code_confirmation,
+            m.delete_link_confirmation,
             reply_markup=confirmation_keyboard(yes=m.yes_delete, no=m.no_cancel),
         )
 
@@ -38,7 +38,7 @@ async def delete_code_confirmed(
     tg_id = message.chat.id
     await ChatCode.objects.filter(tg_user_id=tg_id).adelete()
     await state.clear()
-    await message.reply(m.delete_code_deleted, reply_markup=ReplyKeyboardRemove())
+    await message.reply(m.delete_link_deleted, reply_markup=ReplyKeyboardRemove())
 
 
 @dp.message(DeletionStates.requested, F.text.in_(messages.union.no_cancel))
@@ -46,7 +46,7 @@ async def delete_code_not_confirmed(
     message: types.Message, state: FSMContext, m: messages.en.Messages
 ):
     await state.clear()
-    await message.reply(m.delete_code_cancelled, reply_markup=ReplyKeyboardRemove())
+    await message.reply(m.delete_link_cancelled, reply_markup=ReplyKeyboardRemove())
 
 
 @dp.message(DeletionStates.requested)

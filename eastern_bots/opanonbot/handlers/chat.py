@@ -12,38 +12,26 @@ from ..utils import anon_message_reply_markup, chat_code_is_valid, user_is_not_b
 
 
 class ChatStates(StatesGroup):
-    asked_code = State()
     awaiting_message = State()
 
 
-@dp.message(Command(commands=["send"]))
-async def start_sending(
-    message: types.Message, state: FSMContext, m: messages.en.Messages
-):
-    await state.set_state(ChatStates.asked_code)
-    await message.reply(m.send_ask_code, reply_markup=ReplyKeyboardRemove())
-
-
 @dp.message(Command(commands=["start"]), F.text.contains(" C"))
-@dp.message(ChatStates.asked_code)
 async def check_code(
     message: types.Message, state: FSMContext, bot: Bot, m: messages.en.Messages
 ):
-    if await state.get_state() == ChatStates.asked_code and not message.text.startswith(
-        "/start C"
-    ):
-        # Came here from normal workflow
-        code = message.text
-    else:
-        # Came here from /start
-        code = message.text.split(" C")[1]
+    # Came here from /start
+    code = message.text.split(" C")[1]
 
-    tg_id = message.chat.id
+    tg_id = str(message.chat.id)
     if not await chat_code_is_valid(bot, m, code, tg_id):
         await state.clear()
         return
 
     dst_tg_id = (await ChatCode.objects.aget(code=code)).tg_user_id
+    if dst_tg_id == tg_id:
+        await message.reply(m.no_self_messaging, reply_markup=ReplyKeyboardRemove())
+        return
+
     await state.set_state(ChatStates.awaiting_message)
     await state.set_data({"recipient": dst_tg_id})
     await message.reply(m.send_ask_message, reply_markup=ReplyKeyboardRemove())
@@ -53,6 +41,11 @@ async def check_code(
 async def received_anon_message(
     message: types.Message, state: FSMContext, bot: Bot, m: messages.en.Messages
 ):
+    if message.text == "/cancel":
+        await state.clear()
+        await message.reply(":-)")
+        return
+
     user_tg_id = message.chat.id
     state_data = await state.get_data()
     dst_tg_id = state_data["recipient"]

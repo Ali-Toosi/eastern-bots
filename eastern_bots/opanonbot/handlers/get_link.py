@@ -9,8 +9,8 @@ from ..models import ChatCode
 from ..utils import create_new_chat_code
 
 
-@dp.message(Command(commands=["receive"]))
-async def get_code(
+@dp.message(Command(commands=["my_link"]))
+async def get_link(
     message: types.Message, state: FSMContext, bot: Bot, m: messages.en.Messages
 ):
     await state.clear()
@@ -20,9 +20,13 @@ async def get_code(
     except ChatCode.DoesNotExist:
         code = await create_new_chat_code(tg_id)
     await message.reply(
-        m.show_code.format(code=code),
+        m.show_link.format(code=code),
         reply_markup=ReplyKeyboardRemove(),
         parse_mode="markdown",
     )
     bot_username = (await bot.get_me()).username
-    await bot.send_message(tg_id, f"https://t.me/{bot_username}?start=C{code}")
+    await bot.send_message(
+        tg_id,
+        f"https://t.me/{bot_username}?start=C{code}",
+        disable_web_page_preview=True,
+    )

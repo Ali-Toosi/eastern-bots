@@ -40,9 +40,9 @@ def load_handlers():
     from .handlers import (  # noqa: F401
         block,
         chat,
-        delete_code,
-        get_code,
-        new_code,
+        delete_link,
+        get_link,
+        new_link,
         start,
     )
 
