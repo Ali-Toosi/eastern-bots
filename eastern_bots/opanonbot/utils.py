@@ -1,9 +1,16 @@
 import string
 
+from aiogram import Bot
+from aiogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    ReplyKeyboardRemove,
+)
 from asgiref.sync import sync_to_async
 from django.utils.crypto import get_random_string
 
-from eastern_bots.opanonbot.models import ChatCode
+from eastern_bots.opanonbot import messages as m
+from eastern_bots.opanonbot.models import Blocked, ChatCode
 
 
 async def create_new_chat_code(tg_user_id):
@@ -23,3 +30,51 @@ async def create_new_chat_code(tg_user_id):
     chat_code.code = code
     await sync_to_async(chat_code.save)()
     return code
+
+
+async def user_is_not_blocked(bot: Bot, blocker_id, blocked_id):
+    if await Blocked.objects.filter(blocker=blocker_id, blocked=blocked_id).aexists():
+        await bot.send_message(
+            blocked_id, m.send_blocked, reply_markup=ReplyKeyboardRemove()
+        )
+        return False
+    return True
+
+
+async def chat_code_is_valid(bot: Bot, code, tg_id):
+    """
+    Make sure the chat code exists and the user is not blocked.
+    Return True if valid, False otherwise.
+    """
+    code = str(code)
+    if not code:
+        return False
+
+    chat_code_qs = ChatCode.objects.filter(code=code)
+    if not code or not await chat_code_qs.aexists():
+        await bot.send_message(
+            tg_id, m.send_code_not_found, reply_markup=ReplyKeyboardRemove()
+        )
+        return False
+
+    destination = await chat_code_qs.afirst()
+    dst_tg_id = destination.tg_user_id
+    if not await user_is_not_blocked(bot, dst_tg_id, tg_id):
+        return False
+
+    return True
+
+
+def anon_message_reply_markup(sender_tg_id, message_id):
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="⬅️ Reply", callback_data=f"reply_{sender_tg_id}_{message_id}"
+                ),
+                InlineKeyboardButton(
+                    text="❌ Block", callback_data=f"block_{sender_tg_id}"
+                ),
+            ]
+        ]
+    )

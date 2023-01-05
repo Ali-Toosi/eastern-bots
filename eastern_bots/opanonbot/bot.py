@@ -25,7 +25,14 @@ async def get_bot_instance(token) -> t.Optional[Bot]:
 
 def load_handlers():
     # Import handlers here
-    from .handlers import delete_code, get_code, new_code, start  # noqa: F401
+    from .handlers import (  # noqa: F401
+        block,
+        chat,
+        delete_code,
+        get_code,
+        new_code,
+        start,
+    )
 
 
 load_handlers()

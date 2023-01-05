@@ -46,10 +46,32 @@ new_code_confirmation = dedent(
     """\
     Creating a new code deletes your old code.
 
-    That means no one will be able to send you any more messages unless they have your new code.
-    They won't be able to reply to your old messages either.
+    You won't receive any new messages or any replies to your old messages. You can still start a new chat with someone
+    if you have their code.
 
     Are you sure you want to get a new code?
 """
 )
 new_code_created = "Here is your new chat code: `{code}` (click to copy)"
+
+send_ask_code = (
+    "Send the code of the person you want to chat to (they should provide the code):"
+)
+send_code_not_found = "This code doesn't exist. Try again? 👉 /send"
+send_you_need_code = (
+    "You need to have a code before sending messages so you can receive replies. Click on /receive "
+    "to get your code."
+)
+send_blocked = "Seems like this person has blocked you from sending more messages 😞"
+send_ask_message = "Send your anonymous message..."
+send_successful = "Message sent! I'll let you know if they reply."
+send_failed = (
+    "Failed to send the message! Maybe they have stopped the bot. Try with a different message. If this "
+    "keeps happening, they are probably not using the bot anymore and don't receive messages."
+)
+
+new_anonymous_chat = "New anonymous chat!"
+
+block_confirmation = "Are you sure you want to block this user? You will never receive messages from them again."
+user_blocked = "User blocked! You won't hear from them again."
+block_cancelled = "Cool. No one gets blocked : )"
