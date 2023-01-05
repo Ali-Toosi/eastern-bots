@@ -1,10 +1,22 @@
 import typing as t
 
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, types
 
+from eastern_bots.opanonbot import messages
 from eastern_bots.utils.bot_state_storage import DjangoCacheStorage
 
 dp = Dispatcher(storage=DjangoCacheStorage())
+
+
+@dp.callback_query.outer_middleware()
+@dp.message.outer_middleware()
+async def save_user_and_chat_middleware(
+    handler, event: types.Message, data: t.Dict[str, t.Any]
+):
+    bot_username = (await data["bot"].get_me()).username.lower()
+    data["m"] = messages.bot_map[bot_username]
+
+    return await handler(event, data)
 
 
 bot_instances = {}

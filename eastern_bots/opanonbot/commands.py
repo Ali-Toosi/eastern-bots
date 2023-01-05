@@ -4,22 +4,29 @@ and set them on the bot API.
 """
 from aiogram.types import BotCommand
 
-commands = [
-    BotCommand(command="start", description="See how everything works"),
-    BotCommand(command="help", description="Tips and help for using the bot"),
-    BotCommand(
-        command="send",
-        description="Send anonymous messages to someone with their chat code",
-    ),
-    BotCommand(
-        command="receive",
-        description="Get your chat code for receiving anonymous messages",
-    ),
-    BotCommand(
-        command="new_code", description="Delete your old chat code and create a new one"
-    ),
-    BotCommand(
-        command="delete_code",
-        description="Delete your chat code and don't create a new one",
-    ),
+from .messages import en, fa
+
+base_commands = [
+    ("start", "command_start"),
+    ("help", "command_help"),
+    ("send", "command_send"),
+    ("receive", "command_receive"),
+    ("new_code", "command_new_code"),
+    ("delete_code", "command_delete_code"),
 ]
+
+per_lang = {"en": [], "fa": []}
+
+for lang in [en, fa]:
+    for command in base_commands:
+        per_lang[lang.language].append(
+            BotCommand(
+                command=command[0], description=getattr(lang.Messages, command[1])
+            )
+        )
+
+bot_map = {
+    "opanonbot": per_lang["en"],
+    "nashenasbot": per_lang["fa"],
+    "devtestbot": per_lang["en"],
+}

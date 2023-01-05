@@ -9,7 +9,7 @@ from aiogram.types import (
 from asgiref.sync import sync_to_async
 from django.utils.crypto import get_random_string
 
-from eastern_bots.opanonbot import messages as m
+from eastern_bots.opanonbot import messages
 from eastern_bots.opanonbot.models import Blocked, ChatCode
 
 
@@ -32,7 +32,9 @@ async def create_new_chat_code(tg_user_id):
     return code
 
 
-async def user_is_not_blocked(bot: Bot, blocker_id, blocked_id):
+async def user_is_not_blocked(
+    bot: Bot, m: messages.en.Messages, blocker_id, blocked_id
+):
     if await Blocked.objects.filter(blocker=blocker_id, blocked=blocked_id).aexists():
         await bot.send_message(
             blocked_id, m.send_blocked, reply_markup=ReplyKeyboardRemove()
@@ -41,7 +43,7 @@ async def user_is_not_blocked(bot: Bot, blocker_id, blocked_id):
     return True
 
 
-async def chat_code_is_valid(bot: Bot, code, tg_id):
+async def chat_code_is_valid(bot: Bot, m: messages.en.Messages, code, tg_id):
     """
     Make sure the chat code exists and the user is not blocked.
     Return True if valid, False otherwise.
@@ -59,7 +61,7 @@ async def chat_code_is_valid(bot: Bot, code, tg_id):
 
     destination = await chat_code_qs.afirst()
     dst_tg_id = destination.tg_user_id
-    if not await user_is_not_blocked(bot, dst_tg_id, tg_id):
+    if not await user_is_not_blocked(bot, m, dst_tg_id, tg_id):
         return False
 
     return True

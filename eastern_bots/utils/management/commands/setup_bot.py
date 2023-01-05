@@ -27,8 +27,9 @@ class Command(BaseCommand):
 
         try:
             commands_module = import_module(f"eastern_bots.{app_name}.commands")
-            commands = commands_module.commands
-        except (ImportError, ValueError, AttributeError):
+            commands = commands_module.bot_map[bot_username.lower()]
+        except (ImportError, ValueError, AttributeError) as e:
+            print(repr(e))
             commands = None
         if commands:
             async_to_sync(Bot(bot_token).set_my_commands)(commands)

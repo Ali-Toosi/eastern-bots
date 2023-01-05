@@ -1,30 +1,33 @@
-.. _incomingmessagesbot_index:
+.. _opanonbot_index:
 
-Incoming Messages Bot
+Opanon Bot
 =====================
 
-https://t.me/IncomingMessagesBot
+https://t.me/OpanonBot (English)
 
-This bot allows you to send messages in chats by calling a **webhook**.
+https://t.me/NashenasBot (Persian)
 
-1. Add the bot to the chat you would like to have a webhook for (you can also use the private chat with bot for this).
-2. Call ``/new`` command on the bot and follow the prompts.
-3. The bot will send a URL which is that chat's webhook.
-4. Post messages to that webhook with ``message`` key and the message will be sent to the chat, by the bot.
+This bot allows you to send and receive anonymous messages.
 
-.. note::
-    The bot only supports **text** messages at the moment. You may not post pictures or other message types to the webhook
+1. Start the bot and click on ``/receive``.
+2. You will get a code and a link.
+3. Share the link on your socials and people will be able to send you anonymous messages!
+4. Alternatively, you can share the code with them. They will have to press /send then give the code and start the chat.
 
 Commands
 --------
-``/new``
-    This will create a new webhook for the chat the command was sent to. The webhook address will be sent in the chat.
 ``/help``
-    Help message explaining what the bots and its commands are.
-``/list``
-    Show all the webhooks created in this chat. From the sent list, you can get the URL for a webhook again or delete it.
+    Shows some tips and common questions.
+``/send``
+    Using this command you can start a new anonymous chat with someone if you have their code.
+``/receive``
+    This will show you your current anonymous chat code and link.
+``/new_code``
+    This command deletes your current code (if any) and creates you a new one.
+``/delete_code``
+    This command deletes your current code (if any) without creating you a new one.
 
 Contributing
 ------------
 
-Check out this page for a list of things you can work on: :ref:`Contributing Guide <incomingmessagesbot_contributing>`
+Check out this page for a list of things you can work on: :ref:`Contributing Guide <opanonbot_contributing>`

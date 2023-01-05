@@ -1,16 +1,18 @@
-from aiogram import types
+from aiogram import Bot, types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 
-from .. import messages as m
+from .. import messages
 from ..bot import dp
 from ..models import ChatCode
 from ..utils import create_new_chat_code
 
 
 @dp.message(Command(commands=["receive"]))
-async def get_code(message: types.Message, state: FSMContext):
+async def get_code(
+    message: types.Message, state: FSMContext, bot: Bot, m: messages.en.Messages
+):
     await state.clear()
     tg_id = message.chat.id
     try:
@@ -22,3 +24,5 @@ async def get_code(message: types.Message, state: FSMContext):
         reply_markup=ReplyKeyboardRemove(),
         parse_mode="markdown",
     )
+    bot_username = (await bot.get_me()).username
+    await bot.send_message(tg_id, f"https://t.me/{bot_username}?start=C{code}")
