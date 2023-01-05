@@ -22,7 +22,13 @@ async def new_link_request(
     await state.clear()
     tg_id = message.chat.id
     has_code = await ChatCode.objects.filter(tg_user_id=tg_id).aexists()
-    if not has_code:
+    if has_code:
+        await state.set_state(RevokeStates.requested)
+        await message.reply(
+            m.new_link_confirmation,
+            reply_markup=confirmation_keyboard(yes=m.yes_do_it, no=m.no_cancel),
+        )
+    else:
         code = await create_new_chat_code(tg_id)
         await message.reply(
             m.new_link_created.format(code=code), reply_markup=ReplyKeyboardRemove()
@@ -32,12 +38,6 @@ async def new_link_request(
             tg_id,
             f"https://t.me/{bot_username}?start=C{code}",
             disable_web_page_preview=True,
-        )
-    else:
-        await state.set_state(RevokeStates.requested)
-        await message.reply(
-            m.new_link_confirmation,
-            reply_markup=confirmation_keyboard(yes=m.yes_do_it, no=m.no_cancel),
         )
 
 
