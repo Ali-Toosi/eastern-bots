@@ -28,7 +28,14 @@ async def bot_webhook(request, token):
     # asyncio.create_task(dp.feed_raw_update(bot, update))
 
     # Or wait for execution
-    await dp.feed_raw_update(bot, update)
+    try:
+        await dp.feed_raw_update(bot, update)
+    except Exception as e:
+        # Catching "Exception" is the worst. But there is no option. If the code fails, the webhook shouldn't fail.
+        # If the webhook fails Telegram will stop sending messages altogether. Best solution is to catch all possible
+        # exceptions in your handlers and log any that reach here.
+        if settings.DEBUG:
+            raise e
 
     return HttpResponse("OK.")
 

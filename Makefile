@@ -25,7 +25,7 @@ manage:
 
 .PHONY: logs
 logs:
-	@docker-compose -f local.yml logs -f
+	@docker-compose -f local.yml logs -f --tail 100 django
 
 .PHONY: prod-up
 prod-up:
