@@ -12,6 +12,7 @@ base_commands = [
     ("my_link", "command_my_link"),
     ("new_link", "command_new_link"),
     ("delete_link", "command_delete_link"),
+    ("cancel", "command_cancel"),
 ]
 
 per_lang = {"en": [], "fa": []}
@@ -27,5 +28,5 @@ for lang in [en, fa]:
 bot_map = {
     "opanonbot": per_lang["en"],
     "nashenasbot": per_lang["fa"],
-    "devtestbot": per_lang["en"],
+    "botdevtestbot": per_lang["en"],
 }

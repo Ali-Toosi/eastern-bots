@@ -7,7 +7,9 @@ from .. import messages
 from ..bot import dp
 
 
-@dp.message(Command(commands=["start"]), ~F.text.contains(" C"))
+@dp.message(
+    Command(commands=["start"]), ~F.text.contains(" C")
+)  # Capture start unless it's starting a new chat
 async def start(message: types.Message, state: FSMContext, m: messages.en.Messages):
     await state.clear()
     await message.reply(
@@ -26,6 +28,7 @@ async def tips(message: types.Message, state: FSMContext, m: messages.en.Message
     )
 
 
-@dp.message()
-async def unknown_message(message: types.Message, m: messages.en.Messages):
-    await message.reply(m.unknown_message)
+@dp.message(Command(commands=["cancel"]))
+async def cancel(message: types.Message, state: FSMContext, m: messages.en.Messages):
+    await state.clear()
+    await message.reply(m.all_cancelled)

@@ -9,6 +9,7 @@ class Messages:
     command_my_link = "Get your chat link for receiving anonymous messages"
     command_new_link = "Delete your old chat link and create a new one"
     command_delete_link = "Delete your chat link and don't create a new one"
+    command_cancel = "Cancel whatever is happening"
 
     start_message = dedent(
         """\
@@ -38,6 +39,8 @@ class Messages:
         "Yes! This is an open source project and contributions are very welcome.\n"
         "https://github.com/Ali-Toosi/eastern-bots"
     )
+
+    all_cancelled = "All cancelled! What's next? /start?"
 
     show_link = dedent(
         """\

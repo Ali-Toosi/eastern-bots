@@ -11,6 +11,7 @@ class Messages(en.Messages):
     command_my_link = "دریافت پیام ناشناس"
     command_new_link = "دریافت لینک ناشناس جدید"
     command_delete_link = "حذف لینک ناشناس"
+    command_cancel = "هر کار دارم میکنم، کنسلش کن!"
 
     start_message = dedent(
         """\
@@ -38,6 +39,8 @@ class Messages(en.Messages):
         "و می‌خواین امکانی به ربات اضافه کنین خیلی استقبال میشه."
         "\nhttps://github.com/Ali-Toosi/eastern-bots"
     )
+
+    all_cancelled = "کنسل شد! حالا چی؟ 👈 /start؟"
 
     show_link = dedent(
         """\
