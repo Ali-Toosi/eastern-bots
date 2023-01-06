@@ -8,6 +8,7 @@ commands = [
     BotCommand(command="start", description="Start the bot"),
     BotCommand(command="new", description="Create a new webhook for this chat"),
     BotCommand(command="list", description="List webhooks created for this chat"),
+    BotCommand(command="help", description="How to use this bot"),
     BotCommand(command="cancel", description="Cancel whatever is happening"),
 ]
 

@@ -5,7 +5,7 @@ from . import en, fa
 bot_map = {
     "opanonbot": en.Messages,
     "nashenasbot": fa.Messages,
-    "devtestbot": en.Messages,
+    "botdevtestbot": en.Messages,
 }
 
 

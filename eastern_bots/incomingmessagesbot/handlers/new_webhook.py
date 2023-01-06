@@ -21,7 +21,7 @@ class States(StatesGroup):
 async def new_command(message: types.Message, state: FSMContext):
     await state.set_state(States.started)
     await message.reply(
-        "Choose a name for the webhook so you can find it again later (make sure you will reply to this message):",
+        "Choose a name for the webhook so you can find it later (make sure you reply to this message) or /cancel:",
         reply_markup=force_reply(),
     )
 

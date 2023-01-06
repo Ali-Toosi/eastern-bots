@@ -31,4 +31,4 @@ async def tips(message: types.Message, state: FSMContext, m: messages.en.Message
 @dp.message(Command(commands=["cancel"]))
 async def cancel(message: types.Message, state: FSMContext, m: messages.en.Messages):
     await state.clear()
-    await message.reply(m.all_cancelled)
+    await message.reply(m.all_cancelled, reply_markup=ReplyKeyboardRemove())

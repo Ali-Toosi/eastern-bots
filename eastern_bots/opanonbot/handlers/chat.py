@@ -41,11 +41,6 @@ async def check_code(
 async def received_anon_message(
     message: types.Message, state: FSMContext, bot: Bot, m: messages.en.Messages
 ):
-    if message.text == "/cancel":
-        await state.clear()
-        await message.reply(":-)")
-        return
-
     user_tg_id = message.chat.id
     state_data = await state.get_data()
     dst_tg_id = state_data["recipient"]

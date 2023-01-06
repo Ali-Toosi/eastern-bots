@@ -74,8 +74,11 @@ async def get_bot_instance(token) -> t.Optional[Bot]:
 
 
 def load_handlers():
-    # Import handlers here
-    from .handlers import help  # noqa: F401
+    """
+    Loads the handlers so they would be registered with the dispatcher.
+    The order of registration determines the order they are run, hence ignoring isort and ordering them manually.
+    """
+    from .handlers import help  # noqa: F401 isort:skip
 
 
 load_handlers()
