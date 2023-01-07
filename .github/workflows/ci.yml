@@ -61,6 +61,7 @@ jobs:
 
   deploy:
     name: Deploy
+    concurrency: "deploy-step"  # Only one deploy job at any time
     runs-on: ubuntu-latest
     needs: [ linter, pytest ]
     if: ${{ !contains(github.event.head_commit.message, '#skip-deploy') && github.ref == 'refs/heads/main' }}
