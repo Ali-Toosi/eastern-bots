@@ -28,7 +28,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`toosi.tech`) || Host(`www.toosi.tech`)"
+      rule: "Host(`bots.toosi.tech`)"
       entryPoints:
         - web-secure
       middlewares:
