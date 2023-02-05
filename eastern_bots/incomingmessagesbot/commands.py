@@ -1,5 +1,5 @@
 """
-List of BotCommand objects. Can be used in code but the main purpose is for utils.setup_bot command to read them
+List of BotCommand objects. Can be used in the code but the main purpose is for utils.setup_bot command to read them
 and set them on the bot API.
 """
 from aiogram.types import BotCommand
